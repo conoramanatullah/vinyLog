@@ -1,0 +1,119 @@
+<html lang="en" >
+<head>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <title>vinyLog</title>
+
+</head>
+
+<body ng-app="App" ng-cloak ng-controller="MainController" ng-init="init()">
+
+  <md-toolbar>
+    <div class="md-toolbar-tools" style="color: white">
+      <span><md-button class="md-icon-button" ng-click="leftMenuOpen()"><i class="material-icons">speaker_group</i></md-button></span>
+      <span><h1>vinyLog</h1></span>
+      <span flex></span>
+      <span></span>
+    </div>
+  </md-toolbar>
+
+  <md-sidenav md-component-id="left" class="md-sidenav-left">
+    <md-content layout-padding layout-wrap>
+        <h1 class="md-accent">vinyLog</h1>
+        <h3>View Source on Github</h3>
+        <md-divider></md-divider>
+        <h3>About</h3>
+        <p>This is my personal vinyl record catalogue. Enjoy!</p>
+        <p>Built in 2016 by Conor Amanatullah for FWD.</p>
+    </md-content>
+  </md-sidenav>
+
+  <md-content layout-padding layout-align="center">
+
+    <md-card id="createEntryCard" style="">
+      <md-toolbar ng-if="success">
+        <md-toolbar-tools>
+          <span><h3 style="color: white">Success!</h3></span>
+        </md-toolbar-tools>
+      </md-toolbar>
+      <md-card-title>
+        <md-card-title-media>
+          <img ng-if="record.imageUrl" class="md-media-md" ng-src="{{record.imageUrl}}" alt="Image for record">
+        </md-card-title-media>
+      </md-card-title>
+
+      <md-card-content>
+        <h2><i class="material-icons">add</i> Add New Record </h2>
+        <md-divider></md-divider>
+
+        <md-input-container>
+          <label>Album Title</label>
+          <input  type="text" ng-model="record.title">
+        </md-input-container>
+
+        <md-input-container>
+          <label>Artist Name</label>
+          <input  type="text" ng-model="record.artist">
+        </md-input-container>
+
+        <br>
+
+        <md-input-container>
+          <label>Genre</label>
+          <input  type="text" ng-model="record.genre">
+        </md-input-container>
+
+        <md-input-container>
+          <label>Image URL</label>
+          <input  type="text" ng-model="record.imageUrl">
+        </md-input-container>
+
+        <br>
+
+        <md-input-container>
+          <label>Notes (special editions, etc.)</label>
+          <textarea name="name" rows="4" cols="30" ng-model="record.notes"></textarea>
+        </md-input-container>
+
+        <br>
+
+        <md-input-container>
+          <label>Password</label>
+          <input type="password" ng-model="password">
+        </md-input-container>
+
+      </md-card-content>
+      <div class="md-actions" layout="row" layout-align="">
+          <!-- ayy lmao that aint secure -->
+         <md-button ng-disabled="!(record.artist && record.title && record.notes && (password == 'ayylmao'))" class="md-raised md-primary" ng-click="addRecord()">Add</md-button>
+      </div>
+    </md-card>
+
+    <md-card ng-repeat="record in records" layout-align="center start">
+      <img class="md-card-image md-whiteframe-z3" style="max-width: 30vw" ng-src="{{record.imageUrl}}" alt="{{record.title}}">
+      <md-card-content>
+        <h1 style="font-weight: 300">{{record.title}}</h1>
+        <h2 style="font-weight: 300">by {{record.artist}}</h2>
+        <p>{{record.genre}}</p>
+        <md-divider style="width: 50vw"></md-divider>
+        <p>{{record.notes}}</p>
+      </md-card-content>
+      <div class="md-actions" layout="row">
+         <md-button class="md-raised md-accent" ng-click="deleteEntry(record)" ng-disabled="true">Delete</md-button>
+      </div>
+    </md-card>
+
+  </md-content>
+
+  <script src="https://www.gstatic.com/firebasejs/3.6.3/firebase.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+  <script type="text/javascript" src="js/app.js"></script>
+
+</body>
+</html>
